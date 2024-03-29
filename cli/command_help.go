@@ -21,7 +21,7 @@ type HelpCLICommand struct {
 	CLICommandInfo
 }
 
-func (h HelpCLICommand) Execute() error {
+func (h HelpCLICommand) Execute(args []string) error {
 	fmt.Println(`
     Pokedex CLI
     

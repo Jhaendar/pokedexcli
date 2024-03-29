@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"strings"
 
 	"github.com/Jhaendar/pokedexcli/cli"
 )
@@ -10,13 +11,16 @@ func main() {
 	commands := cli.CLICommands
 
 	for {
-		var command string
+		var input string
 
 		fmt.Print("pokedex > ")
-		_, err := fmt.Scanln(&command)
+		_, err := fmt.Scanln(&input)
+
 		if err != nil {
 			fmt.Println("Error reading command")
 		}
+
+		command, args := processInput(input)
 
 		cliCommand, commandExists := commands[command]
 		if !commandExists {
@@ -24,10 +28,16 @@ func main() {
 			continue
 		}
 
-		commandError := cliCommand.Execute()
+		commandError := cliCommand.Execute(args)
 		if commandError != nil {
 			fmt.Println("Error executing command: ", commandError)
 		}
 
 	}
+}
+
+func processInput(input string) (string, []string) {
+	input_slice := strings.Split(input, " ")
+
+	return input_slice[0], input_slice[1:]
 }

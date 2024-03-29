@@ -21,7 +21,7 @@ type ExitCLICommand struct {
 	CLICommandInfo
 }
 
-func (e ExitCLICommand) Execute() error {
+func (e ExitCLICommand) Execute(args []string) error {
 	fmt.Println("Exiting Pokedex CLI...")
 	os.Exit(0)
 	return nil

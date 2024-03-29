@@ -10,7 +10,7 @@ func addCLICommand(name string, command CLICommand) {
 }
 
 type CLICommand interface {
-	Execute() error
+	Execute([]string) error
 	GetName() string
 	GetDescription() string
 }

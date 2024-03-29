@@ -45,7 +45,7 @@ type MapFCLICommand struct {
 	MapState *MapState
 }
 
-func (m *MapFCLICommand) Execute() error {
+func (m *MapFCLICommand) Execute(args []string) error {
 	var url string
 	if m.MapState.Next != nil {
 		url = *m.MapState.Next
@@ -67,7 +67,7 @@ type MapBCLICommand struct {
 	MapState *MapState
 }
 
-func (m *MapBCLICommand) Execute() error {
+func (m *MapBCLICommand) Execute(args []string) error {
 	var url string
 	if m.MapState.Previous != nil {
 		url = *m.MapState.Previous
