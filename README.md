@@ -10,7 +10,7 @@ A brief description of the project.
 -   [License](#license)
 
 ## TODO
-- [/] Cache
+- [x] Cache
 - [ ] Explore
 - [ ] Catch
 - [ ] Pokedex
