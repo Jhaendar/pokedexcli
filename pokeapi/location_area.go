@@ -3,7 +3,11 @@ package pokeapi
 import (
 	"encoding/json"
 	"fmt"
+	"io"
 	"net/http"
+	"time"
+
+	"github.com/Jhaendar/pokedexcli/pokecache"
 )
 
 type LocationAreaIndex struct {
@@ -15,10 +19,23 @@ type LocationAreaIndex struct {
 
 var LocationAreaIndexURL = "https://pokeapi.co/api/v2/location-area/"
 
+var LocationAreaIndexCache = pokecache.NewCache(5 * time.Minute)
+
 func GetLocationAreaIndex(url string) (LocationAreaIndex, error) {
 	if url == "" {
 		url = LocationAreaIndexURL
 	}
+
+	var locationAreaIndexData LocationAreaIndex
+
+	if data, ok := LocationAreaIndexCache.Get(url); ok {
+		err := json.Unmarshal(data, &locationAreaIndexData)
+		if err != nil {
+			return LocationAreaIndex{}, err
+		}
+		return locationAreaIndexData, nil
+	}
+
 	resp, err := http.Get(url)
 	if err != nil {
 		return LocationAreaIndex{}, err
@@ -26,14 +43,19 @@ func GetLocationAreaIndex(url string) (LocationAreaIndex, error) {
 
 	defer resp.Body.Close()
 
-	var data LocationAreaIndex
-	err = json.NewDecoder(resp.Body).Decode(&data)
+	bodyBytes, err := io.ReadAll(resp.Body)
 	if err != nil {
 		return LocationAreaIndex{}, err
-
 	}
 
-	return data, nil
+	LocationAreaIndexCache.Add(url, bodyBytes)
+
+	err = json.Unmarshal(bodyBytes, &locationAreaIndexData)
+	if err != nil {
+		return LocationAreaIndex{}, err
+	}
+
+	return locationAreaIndexData, nil
 }
 func PrintResourceNames(resources []Resource) {
 	for _, resource := range resources {

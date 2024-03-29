@@ -69,9 +69,10 @@ type MapBCLICommand struct {
 
 func (m *MapBCLICommand) Execute() error {
 	var url string
-	if m.MapState.Next != nil {
-		url = *m.MapState.Next
+	if m.MapState.Previous != nil {
+		url = *m.MapState.Previous
 	}
+
 	mapIndex, err := pokeapi.GetLocationAreaIndex(url)
 	if err != nil {
 		return err
