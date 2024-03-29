@@ -11,7 +11,7 @@ A brief description of the project.
 
 ## TODO
 - [x] Cache
-- [ ] Explore
+- [x] Explore
 - [ ] Catch
 - [ ] Pokedex
 
