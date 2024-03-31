@@ -10,24 +10,6 @@ import (
 	"github.com/Jhaendar/pokedexcli/pokecache"
 )
 
-type LocationAreaIndex struct {
-	Count    int        `json:"count"`
-	Next     *string    `json:"next"`
-	Previous *string    `json:"previous"`
-	Results  []Resource `json:"results"`
-}
-
-type LocationArea struct {
-	ID                int                `json:"id"`
-	Location          Resource           `json:"location"`
-	Name              string             `json:"name"`
-	PokemonEncounters []PokemonEncounter `json:"pokemon_encounters"`
-}
-
-type PokemonEncounter struct {
-	Pokemon Resource `json:"pokemon"`
-}
-
 const LocationAreaIndexURL = "https://pokeapi.co/api/v2/location-area/"
 
 var LocationAreaIndexCache = pokecache.NewCache(5 * time.Minute)
