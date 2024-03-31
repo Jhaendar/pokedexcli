@@ -109,3 +109,15 @@ func PrintCaughtPokemon(name string) {
 
 	PrintPokemon(pokemon)
 }
+
+func PrintAllCaughtPokemon() {
+	if len(PokemonCaught) == 0 {
+		fmt.Println("You have not caught any Pokemon yet")
+		return
+	}
+
+	fmt.Println("Pokedex")
+	for name := range PokemonCaught {
+		fmt.Println(" -", name)
+	}
+}
