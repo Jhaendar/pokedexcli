@@ -12,8 +12,9 @@ A brief description of the project.
 ## TODO
 - [x] Cache
 - [x] Explore
-- [ ] Catch
-- [ ] Pokedex
+- [x] Catch
+- [x] Inspect
+- [x] Pokedex
 
 
 ## Installation
