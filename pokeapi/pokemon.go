@@ -80,3 +80,32 @@ func GetAndCatchPokemon(name_or_id string) error {
 
 	return nil
 }
+func GetCaughtPokemon(name string) (Pokemon, bool) {
+	pokemon, ok := PokemonCaught[name]
+	return pokemon, ok
+}
+func PrintPokemon(pokemon Pokemon) {
+	fmt.Printf("Name: %v\n\n", pokemon.Name)
+	fmt.Printf("Height: %v\n", pokemon.Height)
+	fmt.Printf("Weight: %v\n", pokemon.Weight)
+
+	fmt.Println("Stats:")
+	for _, stat := range pokemon.Stats {
+		fmt.Printf(" - %v: %v\n", stat.Stat.Name, stat.BaseStat)
+	}
+	fmt.Println("Types:")
+	for _, t := range pokemon.Types {
+		fmt.Printf(" - %v\n", t.Type.Name)
+	}
+	fmt.Println()
+}
+
+func PrintCaughtPokemon(name string) {
+	pokemon, ok := GetCaughtPokemon(name)
+	if !ok {
+		fmt.Printf("You have not caught %v yet\n", name)
+		return
+	}
+
+	PrintPokemon(pokemon)
+}
